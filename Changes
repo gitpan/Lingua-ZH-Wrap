@@ -1,0 +1,5 @@
+____________________________________________________________________________
+[  3684] By: autrijus                              on 2003/01/20  07:15:04
+        Log: * package trbig5.pl into Lingua::ZH::Wrap 0.01.
+	   + MANIFEST Makefile.PL README Wrap.pm
+	   + t/0-signature.t t/1-basic.t
