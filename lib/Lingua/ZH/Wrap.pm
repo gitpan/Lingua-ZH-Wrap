@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Lingua-ZH-Wrap/Wrap.pm $ $Author: autrijus $
-# $Revision: #2 $ $Change: 4003 $ $DateTime: 2003/01/29 09:52:31 $
+# $Revision: #3 $ $Change: 4527 $ $DateTime: 2003/03/03 03:17:20 $
 
 package Lingua::ZH::Wrap;
-$Lingua::ZH::Wrap::VERSION = '0.02';
+$Lingua::ZH::Wrap::VERSION = '0.03';
 
 use strict;
 use vars qw($VERSION @ISA @EXPORT $columns $overflow);
@@ -12,6 +12,11 @@ use Exporter;
 =head1 NAME
 
 Lingua::ZH::Wrap - Wrap Chinese text
+
+=head1 VERSION
+
+This document describes version 0.03 of Lingua::ZH::Wrap, released
+July 25, 2004.
 
 =head1 SYNOPSIS
 
@@ -37,7 +42,7 @@ Lingua::ZH::Wrap - Wrap Chinese text
 
 C<Lingua::ZH::Wrap::wrap()> is a very simple paragraph formatter.
 It formats a single paragraph at a time by breaking lines at Chinese
-characterboundries.
+character boundries.
 
 Indentation is controlled for the first line (C<$initial_tab>) and
 all subsequent lines (C<$subsequent_tab>) independently.  Please note: 
@@ -66,7 +71,7 @@ as employing other semantic-sensitive formatting techniques.
 =cut
 
 @ISA      = qw(Exporter);
-@EXPORT   = qw(wrap);
+@EXPORT   = qw(wrap $overflow $columns);
 $columns  = 72;
 $overflow = 0;
 
@@ -118,7 +123,7 @@ Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2003 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
+Copyright 2003, 2004 by Autrijus Tang E<lt>autrijus@autrijus.orgE<gt>.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

@@ -1,13 +1,11 @@
-# $File: //member/autrijus/Lingua-ZH-Wrap/Makefile.PL $ $Author: autrijus $
-# $Revision: #1 $ $Change: 3684 $ $DateTime: 2003/01/20 07:15:04 $
+use inc::Module::Install;
 
-use ExtUtils::MakeMaker;
+name        ('Lingua-ZH-Wrap');
+author      ('Autrijus Tang <autrijus@autrijus.org>');
+abstract    ('Wrap Chinese text');
+license     ('perl');
+version_from('lib/Lingua/ZH/Wrap.pm');
 
-WriteMakefile(
-    AUTHOR		=> 'Autrijus Tang (autrijus@autrijus.org)',
-    ABSTRACT		=> 'Wrap Chinese text',
-    NAME		=> 'Lingua::ZH::Wrap',
-    VERSION_FROM	=> 'Wrap.pm',
-);
+WriteAll(sign => 1);
  
 1;
