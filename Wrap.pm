@@ -1,8 +1,8 @@
 # $File: //member/autrijus/Lingua-ZH-Wrap/Wrap.pm $ $Author: autrijus $
-# $Revision: #1 $ $Change: 3684 $ $DateTime: 2003/01/20 07:15:04 $
+# $Revision: #2 $ $Change: 4003 $ $DateTime: 2003/01/29 09:52:31 $
 
 package Lingua::ZH::Wrap;
-$Lingua::ZH::Wrap::VERSION = '0.01';
+$Lingua::ZH::Wrap::VERSION = '0.02';
 
 use strict;
 use vars qw($VERSION @ISA @EXPORT $columns $overflow);
@@ -56,8 +56,8 @@ next line, unless C<$Lingua::ZH::Wrap::overflow> is set to a true value.
 =head1 CAVEATS
 
 The algorithm doesn't care about breaking non-Chinese words.  Also,
-Unicode handling is not there -- you have to pass in strings encoded
-in C<Big5>, C<GBK>, or other double-byte coding systems.
+if you pass in strings encoded unicode, it will currently first decode
+into C<Big5>, do the conversion, then convert back.
 
 Patches are, of course, very welcome; in particular, I'd like to use
 L<Lingua::ZH::TaBE> to avoid beginning-of-line punctuations, as well
@@ -70,13 +70,25 @@ as employing other semantic-sensitive formatting techniques.
 $columns  = 72;
 $overflow = 0;
 
+require Encode if $] >= 5.008;
+
 sub wrap {
+    if ($] >= 5.008 and Encode::is_utf8($_[2])) {
+	return Encode::decode(big5 => _wrap(map {
+	    Encode::is_utf8($_) ? Encode::encode(big5 => $_) : $_
+	} @_));
+    }
+
+    return _wrap(@_);
+}
+
+sub _wrap {
     my ($init, $subs) = (shift, shift);
 
-    return join("\n", map(wrap($init, $subs, $_), @_)) if @_ > 1;
+    return join("\n", map(_wrap($init, $subs, $_), @_)) if @_ > 1;
 
     my $str = shift;
-    return join("\n", map(wrap($init, $subs, $_), split("\n", $str)))
+    return join("\n", map(_wrap($init, $subs, $_), split("\n", $str)))
         if (index($str, "\n") > -1); # Handles single-line only
 
     my ($fin, $pos) = ($columns - 1, 0);
